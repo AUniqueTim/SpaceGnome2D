@@ -5796,11 +5796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 94602791596801692, guid: 281c649de65867841ada9e8e7a2b2327, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 94602791596801692, guid: 281c649de65867841ada9e8e7a2b2327, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.91
       objectReference: {fileID: 0}
     - target: {fileID: 94602791596801692, guid: 281c649de65867841ada9e8e7a2b2327, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6097,7 +6097,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7484592699853409494, guid: 99f00d552c10d294b83981d134bf6fd9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 99f00d552c10d294b83981d134bf6fd9, type: 3}
 --- !u!1001 &3409563313431809760
 PrefabInstance:
@@ -6222,6 +6223,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9153813203571345331, guid: 99f00d552c10d294b83981d134bf6fd9, type: 3}
   m_PrefabInstance: {fileID: 3245334709190598169}
   m_PrefabAsset: {fileID: 0}
+--- !u!70 &4468664934590740594
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468664934590740591}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!114 &4468664934590740595 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5269085136277913304, guid: 99f00d552c10d294b83981d134bf6fd9, type: 3}
@@ -6304,6 +6321,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1.6513523
       objectReference: {fileID: 0}
+    - target: {fileID: 4586101975558700159, guid: 4be7094cd950ebb4084d9ad7e4c758fc, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: a224947d039374440a1c2313c0612be4, type: 2}
     - target: {fileID: 4586101975558700159, guid: 4be7094cd950ebb4084d9ad7e4c758fc, type: 3}
       propertyPath: m_Offset.y
       value: 0.22946411
