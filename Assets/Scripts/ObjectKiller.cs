@@ -39,7 +39,7 @@ public class ObjectKiller : MonoBehaviour
     }
     public void SpawnPlayer()
     {
-        Instantiate(playerPrefab,spawnTransform); movementScript.playerDestroyed = false;
+        Instantiate(playerPrefab,spawnTransform); //movementScript.playerDestroyed = false;
     }
         
         
