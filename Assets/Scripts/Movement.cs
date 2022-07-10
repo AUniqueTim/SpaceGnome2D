@@ -140,7 +140,9 @@ public class Movement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 0) { Idle(); runState = "isIdle"; }
         else if (Input.GetAxisRaw("Horizontal") > 0) { MoveForward(); runState = "isWalking"; }
         else if (Input.GetAxisRaw("Horizontal") < 0) { MoveBackward(); runState = "isWalkingBackwards"; }
-
+        else if (Input.GetAxisRaw("Vertical") == 0) { Idle(); runState = "isIdle"; }
+        else if (Input.GetAxisRaw("Vertical") >0 ) { MoveUp(); runState = "isMovingUp"; }
+        else if (Input.GetAxisRaw("Vertical") < 0) { MoveDown(); runState = "isMovingDown"; }
         if (Input.GetAxisRaw("Jump") > 0) { Jump(); runState = "isJumping"; }
 
         if (Input.GetKey(KeyCode.D)) {  flipX = false;  playerRB.transform.position += Vector3.right * playerSpeed * Time.deltaTime; }
@@ -202,6 +204,19 @@ public class Movement : MonoBehaviour
     {
         pokeAnimator.SetBool("backwards", false);
 
+    }
+
+    public void MoveUp()
+    {
+        ResetStates();
+        pokeAnimator.SetBool("movinngUp", true);
+        runState = "isMovingUp";
+    }
+    public void MoveDown()
+    {
+        ResetStates();
+        pokeAnimator.SetBool("movinngDown", true);
+        runState = "isMovingDown";
     }
 
     //Jumping Animation State

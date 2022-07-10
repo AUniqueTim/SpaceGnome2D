@@ -1,0 +1,36 @@
+﻿:: StoryMenu
+[[Start]]
+[[Credits]]
+
+
+:: Start
+Welcome to Wordplay!
+[[NEW GAME|StoryAuthor]]
+[[MAIN MENU|StoryMenu]]
+
+
+:: Credits
+created by Timothy Winston Walker Case
+
+[[MAIN MENU|StoryMenu]]
+
+
+:: StoryInit
+/% Place your story's setup code in this passage.
+Any macros in this passage will be run before the Start passage (or any passage you wish to Test Play) is run. %/
+
+
+
+:: Wordplay
+[[BEGIN!|1]]
+
+
+:: StoryAuthor
+[[by Tim Case|Wordplay]]
+
+
+:: 1
+[[Back|Wordplay]]
+[[MAIN MENU|StoryMenu]]
+
+
