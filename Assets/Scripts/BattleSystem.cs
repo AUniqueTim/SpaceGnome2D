@@ -37,9 +37,9 @@ public class BattleSystem : MonoBehaviour
     }
     IEnumerator SetUpBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation, true) ;
         playerUnit =  playerGO.GetComponent<Unit>();
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation, true);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         playerNameText.text = playerUnit.name;
