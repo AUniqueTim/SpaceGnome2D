@@ -25,7 +25,10 @@ public class BattleSystem : MonoBehaviour
     public Text playerNameText;
     public BattleState state;
 
-    public Text dialogueText; 
+    public Text dialogueText;
+
+    public GameObject attackButtonGO;
+    public GameObject healButtonGO;
 
     void Start()
     {
@@ -79,11 +82,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+
+        attackButtonGO.SetActive(false);
+        healButtonGO.SetActive(false);
         //Enemy AI goes here
 
         dialogueText.text = enemyUnit.unitName + " attacks!";
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         bool isDeadPlayer = playerUnit.TakeDamage(enemyUnit.damage);
 
@@ -115,6 +121,9 @@ public class BattleSystem : MonoBehaviour
     }
     void PlayerTurn() 
     {
+        attackButtonGO.SetActive(true);
+        healButtonGO.SetActive(true);
+
         dialogueText.text = "Choose Action: ";
     }
 
