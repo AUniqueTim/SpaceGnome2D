@@ -145,8 +145,11 @@ public class Movement : MonoBehaviour
         else if (Input.GetAxisRaw("Vertical") < 0) { MoveDown(); runState = "isMovingDown"; }
         if (Input.GetAxisRaw("Jump") > 0) { Jump(); runState = "isJumping"; }
 
+        if (Input.GetKey(KeyCode.W)) { playerRB.transform.position += Vector3.up * playerSpeed * Time.deltaTime; }
+        if (Input.GetKey(KeyCode.S)) { playerObject.transform.position += Vector3.down * playerSpeed * Time.deltaTime; }
         if (Input.GetKey(KeyCode.D)) {  flipX = false;  playerRB.transform.position += Vector3.right * playerSpeed * Time.deltaTime; }
         if (Input.GetKey(KeyCode.A)) { flipX = true; playerRB.transform.position += -Vector3.right * playerSpeed * Time.deltaTime;  }
+
         if (Input.GetKeyUp(KeyCode.Space)) { Jump(); playerRB.transform.position += Vector3.up * jumpHeight * jumpSpeed * -gravity * Time.deltaTime;  }
         if (Input.GetKey(KeyCode.LeftShift)) { ResetStates();  Slide(); playerSpeed = 10; runState = "isSliding"; /*Add boost bar, depleting when used via timer?*/}
         else if (Input.GetKeyUp(KeyCode.LeftShift)) { playerSpeed = 3; ResetStates(); }
