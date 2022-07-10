@@ -146,7 +146,7 @@ public class Movement : MonoBehaviour
         if (Input.GetAxisRaw("Jump") > 0) { Jump(); runState = "isJumping"; }
 
         if (Input.GetKey(KeyCode.W)) { playerRB.transform.position += Vector3.up * playerSpeed * Time.deltaTime; }
-        if (Input.GetKey(KeyCode.S)) { playerObject.transform.position += Vector3.down * playerSpeed * Time.deltaTime; }
+        if (Input.GetKey(KeyCode.S)) { playerRB.transform.position += Vector3.down * playerSpeed * Time.deltaTime; }
         if (Input.GetKey(KeyCode.D)) {  flipX = false;  playerRB.transform.position += Vector3.right * playerSpeed * Time.deltaTime; }
         if (Input.GetKey(KeyCode.A)) { flipX = true; playerRB.transform.position += -Vector3.right * playerSpeed * Time.deltaTime;  }
 
