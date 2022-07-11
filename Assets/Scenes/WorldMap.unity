@@ -10908,6 +10908,7 @@ GameObject:
   - component: {fileID: 2103608866}
   - component: {fileID: 2103608865}
   - component: {fileID: 2103608867}
+  - component: {fileID: 2103608868}
   m_Layer: 0
   m_Name: new creepy tree_COLLIDER
   m_TagString: Untagged
@@ -11006,6 +11007,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.6292477, y: 9.6588745}
   m_EdgeRadius: 0
+--- !u!114 &2103608868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103608864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f0fb144af5e5548bd3d5572c953e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteracting: 0
 --- !u!1 &2107228450
 GameObject:
   m_ObjectHideFlags: 0

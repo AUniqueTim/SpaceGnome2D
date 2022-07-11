@@ -98,5 +98,5 @@ MonoBehaviour:
   unitName: Enemy ONE
   unitLevel: 2
   damage: 2
-  maxHP: 10
+  maxHP: 15
   currentHP: 10

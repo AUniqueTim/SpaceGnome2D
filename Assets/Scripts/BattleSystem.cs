@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
@@ -29,6 +30,8 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject attackButtonGO;
     public GameObject healButtonGO;
+
+    public bool hpFull;
 
     void Start()
     {
@@ -61,15 +64,18 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "Attack Hit!";
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
 
+        dialogueText.text = "Attack Hit!";
+        Toolbox.Instance.m_playerManager.boost -= 1000f;
         yield return new WaitForSeconds(1f);
 
         //Check enemy health
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -79,22 +85,71 @@ public class BattleSystem : MonoBehaviour
         }
        
     }
+    IEnumerator BuyDrink()
+    {
+        Toolbox.Instance.m_playerManager.boost += 1000f;
+
+        //Heal Enemy
+        hpFull = enemyUnit.ReceiveDrink(enemyUnit.maxHP);
+
+        enemyHUD.SetHP(enemyUnit.currentHP);
+
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
+
+        dialogueText.text = "Bought a Drink!";
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (enemyUnit.currentHP >= enemyUnit.maxHP)
+        {
+            enemyUnit.currentHP = enemyUnit.maxHP;
+            hpFull = true;
+
+
+        }
+        else hpFull = false;
+        if (hpFull)
+        {
+            state = BattleState.WON;
+            StartCoroutine(EndBattle());
+        }
+        else
+        {
+            //Enemy Turn
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+
+    }
 
     IEnumerator EnemyTurn()
     {
-
+        int critChance;
+        bool critHit = false;
         attackButtonGO.SetActive(false);
         healButtonGO.SetActive(false);
         //Enemy AI goes here
-
+        critChance = Random.Range(0, 10);
+        if (critChance == 3 || critChance == 7)
+        {
+            critHit = true;
+        }
+        if (critHit)
+        {
+            enemyUnit.damage += 2;
+            Debug.Log("Enemy rolled a " + critChance + ", scoring a critical hit.");
+        }
+        else { yield return new WaitForSeconds(0.5f); }
         dialogueText.text = enemyUnit.unitName + " attacks!";
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
 
         bool isDeadPlayer = playerUnit.TakeDamage(enemyUnit.damage);
-
+        enemyUnit.damage -= 2;
         playerHUD.SetHP(playerUnit.currentHP);
-
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
         yield return new WaitForSeconds(0.5f);
 
         if (isDeadPlayer)
@@ -102,13 +157,17 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.LOST;
             EndBattle();
         }
+        else if (hpFull) 
+        {
+            state = BattleState.WON;
+        }
         else
         {
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
-    void EndBattle()
+    IEnumerator EndBattle()
     {
         if (state == BattleState.WON)
         {
@@ -118,9 +177,16 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "Battle LOST!";
         }
+        yield return new WaitForSeconds(1.5f);
+
+        EditorSceneManager.LoadScene("WorldMap");
+        
+       
     }
     void PlayerTurn() 
     {
+
+        //Current Workaround for button mashing bug is to disable buttons during enemy turn, but does not work well.
         attackButtonGO.SetActive(true);
         healButtonGO.SetActive(true);
 
@@ -132,9 +198,23 @@ public class BattleSystem : MonoBehaviour
         playerUnit.Heal(3);
 
         playerHUD.SetHP(playerUnit.currentHP);
+
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
         dialogueText.text = "Player Healed!"; // Add Unit Heal(healAmount);
 
         yield return new WaitForSeconds(1f);
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+    IEnumerator Charm()
+    {
+        playerUnit.TakeDamage(1);
+        enemyUnit.currentHP += 3;
+        playerHUD.SetHP(playerUnit.currentHP);
+        dialogueText.text = "Player charmed enemy";
+
+        yield return new WaitForSeconds(0.5f);
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -145,12 +225,25 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerAttack());
     }
+    public void OnBuyDrinkButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        StartCoroutine(BuyDrink());
+    }
     public void OnHealButton()
     {
         if (state != BattleState.PLAYERTURN)
             return;
 
         StartCoroutine(PlayerHeal());
+    }
+    public void OnCharmButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(Charm());
     }
 
 }

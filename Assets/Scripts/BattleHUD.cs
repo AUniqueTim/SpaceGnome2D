@@ -8,6 +8,8 @@ public class BattleHUD : MonoBehaviour
     public Text nameText;
     public Text levelText;
     public Slider hpSlider;
+    public Text hpText;
+    public Text enemyHPText;
 
     public void SetHUD(Unit unit)
     {
@@ -15,6 +17,8 @@ public class BattleHUD : MonoBehaviour
         levelText.text = "LVL " + unit.unitLevel;
         hpSlider.maxValue = unit.maxHP;
         hpSlider.value = unit.currentHP;
+        hpText.text = unit.currentHP.ToString();
+        enemyHPText.text = unit.currentHP.ToString();
     }
 
     public void SetHP(int hp)

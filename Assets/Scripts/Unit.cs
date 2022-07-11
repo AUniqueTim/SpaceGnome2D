@@ -21,6 +21,15 @@ public class Unit : MonoBehaviour
         else
             return false;
     }
+    public bool ReceiveDrink(int hpRecovered)
+    {
+        currentHP += hpRecovered;
+        if (currentHP > 0)
+            return true;
+        else
+            return false;
+        
+    }
     public void Heal(int healAmount)
     {
         currentHP += healAmount;
