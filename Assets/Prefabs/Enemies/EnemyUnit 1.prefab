@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 99ba182ca92be274a816e048e5e63362, type: 3}
-  m_Color: {r: 0.50183636, g: 0.7264151, b: 0.03198047, a: 1}
+  m_Color: {r: 0.56422365, g: 0.03137254, b: 0.7254902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,8 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c77313d2ab7e24b882888a85bb8183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy ONE
+  unitName: Enemy Two
   unitLevel: 5
   damage: 5
   maxHP: 35
   currentHP: 15
+  maxBoost: 0
+  currentBoost: 0

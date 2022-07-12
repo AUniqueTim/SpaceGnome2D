@@ -97,6 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Enemy ONE
   unitLevel: 2
-  damage: 2
+  damage: 1
   maxHP: 15
   currentHP: 10
+  maxBoost: 1000
+  currentBoost: 0

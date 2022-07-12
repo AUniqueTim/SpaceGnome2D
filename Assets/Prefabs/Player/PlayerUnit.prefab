@@ -97,6 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: PLAYER ONE
   unitLevel: 1
-  damage: 3
+  damage: 2
   maxHP: 10
-  currentHP: 8
+  currentHP: 10
+  maxBoost: 1000
+  currentBoost: 100

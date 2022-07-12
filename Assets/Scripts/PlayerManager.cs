@@ -11,14 +11,14 @@ public class PlayerManager : MonoBehaviour
 {
     public PlayerManager playerManager;
 
-    public Image boostBar;
+    //public Image boostBar;
     
     public float boost;
 
     private void Start()
     {
 
-        boost = Toolbox.Instance.m_playerManager.boost;
+        boost = 10000f;
       
     }
 }

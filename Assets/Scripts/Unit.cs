@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
 
+    public float maxBoost;
+    public float currentBoost;
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
@@ -21,21 +23,29 @@ public class Unit : MonoBehaviour
         else
             return false;
     }
-    public bool ReceiveDrink(int hpRecovered)
+    public void ReceiveDrink(int hpRecovered)
     {
         currentHP += hpRecovered;
-        if (currentHP > 0)
-            return true;
-        else
-            return false;
-        
+       
+        if (currentHP >= maxHP)
+        {
+            currentHP = maxHP;
+        }
     }
     public void Heal(int healAmount)
     {
         currentHP += healAmount;
-        if (currentHP > maxHP)
+        if (currentHP >= maxHP)
         {
             currentHP = maxHP;
+        }
+    }
+    public void LoseBoost(int lostAmount)
+    {
+        currentBoost -= lostAmount;
+        if (currentBoost >= maxBoost)
+        {
+            currentBoost = maxBoost;
         }
     }
 }
