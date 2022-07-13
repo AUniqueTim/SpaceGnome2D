@@ -43,6 +43,9 @@ public class BattleSystem : MonoBehaviour
     void Update()
     {
         enemyUnit = enemyBattleStation.GetComponentInChildren<Unit>();
+       // enemyHUD = enemyBattleStation.GetComponentInChildren<BattleHUD>();
+        playerUnit = playerBattleStation.GetComponentInChildren<Unit>();
+        //playerHUD = playerBattleStation.GetComponentInChildren<BattleHUD>();
     }
     IEnumerator SetUpBattle()
     {
@@ -284,7 +287,7 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         
-        enemyHUD.SetHUD(enemyUnit);
+        enemyHUD.SetHUD(enemyBattleStation.GetComponentInChildren<Unit>());
         
 
         

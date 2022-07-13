@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Enemy Two
   unitLevel: 5
-  damage: 5
+  damage: 3
   maxHP: 35
-  currentHP: 15
-  maxBoost: 0
+  currentHP: 20
+  maxBoost: 1000
   currentBoost: 0
