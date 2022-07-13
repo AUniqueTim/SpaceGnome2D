@@ -35,7 +35,7 @@ public class BoostBar : MonoBehaviour
         
         boost.Update();
 
-        boostBar.fillAmount = boost.GetBoostNormalized();
+       // boostBar.fillAmount = boost.GetBoostNormalized();
     }
 
    
@@ -56,7 +56,7 @@ public class BoostBar : MonoBehaviour
         public void Update()
         {
             boostAmount += boostRegen * Time.deltaTime;
-            boostAmount = Toolbox.Instance.m_playerManager.boost;
+           // boostAmount = Toolbox.Instance.m_playerManager.boost;
         }
 
         public void SpendBoost(float amount)
@@ -66,9 +66,9 @@ public class BoostBar : MonoBehaviour
                 boostAmount -= amount;
             }
         }
-        public float GetBoostNormalized()
-        {
-            return Toolbox.Instance.m_playerManager.boost / boostTotal;
-        }
+        //public float GetBoostNormalized()
+        //{
+        //  //  return Toolbox.Instance.m_playerManager.boost / boostTotal;
+        //}
     }
 }

@@ -9,15 +9,16 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
 public class BattleSystem : MonoBehaviour
 {
+    public Toolbox toolbox;
 
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    public Unit playerUnit;
+    public Unit enemyUnit;
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
@@ -39,26 +40,32 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
+    void Update()
+    {
+        enemyUnit = enemyBattleStation.GetComponentInChildren<Unit>();
+    }
     IEnumerator SetUpBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation, true) ;
         playerUnit =  playerGO.GetComponent<Unit>();
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation, true);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        GameObject enemyGO = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Length)], enemyBattleStation, true);
+        enemyUnit = enemyBattleStation.GetComponentInChildren<Unit>();
 
         playerNameText.text = playerUnit.name;
         enemyNameText.text = enemyUnit.name;
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
-       
+
+      
+        //playerUnit = playerGO.GetComponentInChildren<Unit>();
 
         Debug.Log("Waiting two second(s)...");
         yield return new WaitForSeconds(2f);
         
 
         state = BattleState.PLAYERTURN;
-        Debug.Log("Player turn started.");
+        Debug.Log("Battle started.");
         StartCoroutine(PlayerTurn());
     }
 
@@ -68,7 +75,7 @@ public class BattleSystem : MonoBehaviour
         //Current Workaround for button mashing bug is to disable buttons during enemy turn, but does not work well.
         // attackButtonGO.SetActive(true);
         // healButtonGO.SetActive(true);
-
+        Debug.Log("Player turn started.");
         dialogueText.text = "Choose Action: ";
 
         yield return new WaitForSeconds(1f);
@@ -91,22 +98,24 @@ public class BattleSystem : MonoBehaviour
     }
     IEnumerator PlayerAttack()
     {
+        Debug.Log("Player attacked!");
+       
         //enemyUnit.TakeDamage(playerUnit.damage);
         //enemyHUD.SetHP(enemyUnit.currentHP - playerUnit.damage);
         //Damage enemy
-        bool isDead = enemyUnit.TakeDamage(enemyUnit.currentHP - playerUnit.damage);
+        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
+        dialogueText.text = "Attack Hit!";
 
-       
         //playerHUD.SetHUD(playerUnit);
-        
-        enemyHUD.SetHUD(enemyUnit);
-      
 
-        
+        enemyHUD.SetHUD(enemyUnit);
+
+
+
         //Toolbox.Instance.m_playerManager.boost -= 1000f;
 
-
+        
         //Check enemy health
         if (isDead)
         {
@@ -125,7 +134,7 @@ public class BattleSystem : MonoBehaviour
 
             StartCoroutine(EnemyTurn());
         }
-        dialogueText.text = "Attack Hit!";
+        
         yield return new WaitForSeconds(1f);
     }
     IEnumerator BuyDrink()
@@ -136,7 +145,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.ReceiveDrink(2);
         
         //Give Enemy Boost
-        enemyHUD.SetEnemyBoost(100);
+        enemyHUD.SetEnemyBoost(50);
 
         enemyHUD.SetHUD(enemyUnit);
        
@@ -202,13 +211,13 @@ public class BattleSystem : MonoBehaviour
 
            
         }
-        if (!critHit)
-        {
-            dialogueText.text = "A " + enemyUnit.name + " attacks!";
-            playerHUD.SetHP(playerUnit.currentHP -= enemyUnit.damage);
-            // playerHUD.SetHUD(playerUnit);
-            yield return new WaitForSeconds(0.5f);
-        }
+        //if (!critHit)
+        //{
+        //    dialogueText.text = "A " + enemyUnit.name + " attacks!";
+        //    playerHUD.SetHP(playerUnit.currentHP -= enemyUnit.damage);
+        //    // playerHUD.SetHUD(playerUnit);
+        //    yield return new WaitForSeconds(0.5f);
+        //}
         
 
 
@@ -264,7 +273,7 @@ public class BattleSystem : MonoBehaviour
         if (charmChance == 20 || charmChance >= threshhold)
         {
             
-            enemyHUD.SetEnemyBoost(300);
+            enemyHUD.SetEnemyBoost(200);
             dialogueText.text = "Player successfully charmed enemy!";
             yield return new WaitForSeconds(0.5f);
 

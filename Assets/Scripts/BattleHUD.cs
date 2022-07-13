@@ -13,6 +13,9 @@ public class BattleHUD : MonoBehaviour
     public Text boostText;
     public Text enemyBoostText;
 
+    public GameObject enemySpawnGO;
+    public GameObject playerSpawnGO;
+
     public Unit enemyUnit;
     public Unit playerUnit;
 
@@ -20,10 +23,22 @@ public class BattleHUD : MonoBehaviour
     {
         SetHUD(enemyUnit);
         SetHUD(playerUnit);
+
+        enemyUnit = enemySpawnGO.GetComponentInChildren<Unit>();
+        playerUnit = playerSpawnGO.GetComponentInChildren<Unit>();
+    }
+
+    private void Update()
+    {
+        enemyUnit = enemySpawnGO.GetComponentInChildren<Unit>();
+        playerUnit = playerSpawnGO.GetComponentInChildren<Unit>();
+
     }
 
     public void SetHUD(Unit unit)
     {
+
+        
         nameText.text = unit.unitName;
         levelText.text = "LVL " + unit.unitLevel;
         hpSlider.maxValue = unit.maxHP;
@@ -37,8 +52,11 @@ public class BattleHUD : MonoBehaviour
     public void SetHP(int hp)
         {
             hpSlider.value = hp;
-      //  hpText.text = hp.ToString();
-        //enemyHPText.text = hp.ToString();
+        hpText.text = hp.ToString();
+       enemyHPText.text = hp.ToString();
+
+        SetHUD(enemyUnit);
+        SetHUD(playerUnit);
         
         }
 

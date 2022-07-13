@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Toolbox : MonoBehaviour
 {
-    public PlayerManager m_playerManager;
-    public BoostBar m_boostBar;
-    public BattleSystem m_playerUnit;
-    public BattleSystem m_enemyUnit;
-    public Boost m_boostClass;
+    
+    public Unit m_playerUnit;
+    public Unit m_enemyUnit;
+
+    public GameObject playerPrefab;
+    public GameObject enemyPrefab;
 
     //START SINGLETON
 
@@ -37,7 +38,9 @@ public class Toolbox : MonoBehaviour
 
     private void Start()
     {
-       
+        m_playerUnit = playerPrefab.GetComponent<Unit>();
+
+        m_enemyUnit = enemyPrefab.GetComponent<Unit>();
     }
     private void Update()
     {
